@@ -48,7 +48,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="font-body text-xs text-muted-foreground pt-4 border-t border-border w-full text-center">
-            2025 Sphuran. All rights reserved. IIEST Shibpur.
+            &copy; {new Date().getFullYear()} <a href="https://www.eesiiests.org" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Electrical Engineers' Society</a>. Designed by EES Web Team.
           </div>
         </div>
       </div>
