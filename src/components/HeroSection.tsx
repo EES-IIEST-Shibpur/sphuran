@@ -1,0 +1,65 @@
+const HeroSection = () => {
+  return (
+    <section id="home" className="relative min-h-screen flex items-center justify-center pt-20">
+      <div className="container mx-auto px-4 md:px-6 text-center">
+        {/* Version Badge */}
+        <div className="animate-slide-up inline-block mb-6">
+          <span className="px-4 py-2 text-xs md:text-sm font-body tracking-widest uppercase border border-primary/50 text-primary rounded-full">
+            March 2025
+          </span>
+        </div>
+
+        {/* Main Title */}
+        <h1 
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-wider text-foreground mb-4 animate-slide-up"
+          style={{ animationDelay: '0.1s' }}
+        >
+          SPHURAN
+        </h1>
+        
+        {/* Version Number */}
+        <div 
+          className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[12rem] font-black text-primary text-glow-strong animate-slide-up"
+          style={{ animationDelay: '0.2s' }}
+        >
+          4.0
+        </div>
+
+        {/* Tagline */}
+        <p 
+          className="font-body text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto mt-8 mb-12 tracking-wide animate-fade-in-delay"
+        >
+          Where Innovation Meets Excellence. The Ultimate Technical Extravaganza.
+        </p>
+
+        {/* CTA Buttons */}
+        <div 
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-delay"
+          style={{ animationDelay: '0.4s' }}
+        >
+          <a
+            href="#events"
+            className="px-8 py-4 bg-primary text-primary-foreground font-display text-sm tracking-widest uppercase hover:bg-primary/90 transition-all duration-300 box-glow hover:box-glow-strong rounded-sm"
+          >
+            Explore Events
+          </a>
+          <a
+            href="#about"
+            className="px-8 py-4 border border-foreground/30 text-foreground font-display text-sm tracking-widest uppercase hover:border-primary hover:text-primary transition-all duration-300 rounded-sm"
+          >
+            Learn More
+          </a>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-float">
+          <div className="w-6 h-10 border-2 border-muted-foreground rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-primary rounded-full mt-2 animate-pulse" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
