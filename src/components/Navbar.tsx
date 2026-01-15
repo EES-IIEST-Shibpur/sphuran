@@ -40,7 +40,7 @@ const Navbar = () => {
               className="h-10 w-10 md:h-12 md:w-12 object-contain rounded-lg"
             />
             <span className="font-display text-xl md:text-2xl font-bold tracking-wider text-foreground">
-              SPHURAN<span className="text-primary">4.0</span>
+              SPHURAN <span className="text-primary">4.0</span>
             </span>
           </a>
 
