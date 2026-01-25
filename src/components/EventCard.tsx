@@ -7,11 +7,15 @@ interface EventCardProps {
   category: string;
   date: string;
   prize: string;
+  onClick?: () => void;
 }
 
-const EventCard = ({ title, description, icon: Icon, category, date, prize }: EventCardProps) => {
+const EventCard = ({ title, description, icon: Icon, category, date, prize, onClick }: EventCardProps) => {
   return (
-    <div className="group relative p-6 md:p-8 bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-500 overflow-hidden">
+    <div 
+      className="group relative p-6 md:p-8 bg-card border border-border rounded-lg hover:border-primary/50 transition-all duration-500 overflow-hidden cursor-pointer"
+      onClick={onClick}
+    >
       {/* Background Glow Effect */}
       <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       

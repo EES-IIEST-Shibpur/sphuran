@@ -1,8 +1,26 @@
-import { Code, Cpu, Gamepad2, Lightbulb, Mic, Wrench, Zap, Activity } from 'lucide-react';
+import { Code, Cpu, Gamepad2, Lightbulb, Mic, Wrench, Zap, Activity, Rocket, Brain, Trophy, Target, Sparkles, Radio, GitBranch } from 'lucide-react';
 import EventCard from './EventCard';
+import EventDetailModal from './EventDetailModal';
 import circuitPattern from '@/assets/circuit-pattern.png';
+import { useState } from 'react';
 
-const events = [
+export interface Event {
+  title: string;
+  description: string;
+  icon: any;
+  category: string;
+  date: string;
+  prize: string;
+  venue?: string;
+  teamSize?: string;
+  rules?: string[];
+  eligibility?: string;
+  contact?: string;
+  rulebookLink?: string;
+  registrationLink?: string;
+}
+
+const events: Event[] = [
   {
     title: 'CodeStorm',
     description: 'A 6-hour competitive programming challenge. Solve complex algorithmic problems and compete for the top spot.',
@@ -10,6 +28,19 @@ const events = [
     category: 'Coding',
     date: 'Day 1',
     prize: '50K',
+    venue: 'Computer Lab, Block A',
+    teamSize: '1-2 members',
+    rules: [
+      'Participants can use any programming language',
+      'Internet access will be restricted to documentation only',
+      'No communication with external parties during the event',
+      'Problems will be released at the start of the competition',
+      'Submission deadline is strict - no extensions'
+    ],
+    eligibility: 'Open to all undergraduate and postgraduate students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/codestorm-rules',
+    registrationLink: 'https://forms.google.com/codestorm-register',
   },
   {
     title: 'RoboWars',
@@ -18,6 +49,19 @@ const events = [
     category: 'Robotics',
     date: 'Day 2',
     prize: '75K',
+    venue: 'Open Ground, Sports Complex',
+    teamSize: '3-5 members',
+    rules: [
+      'Maximum robot weight: 60kg',
+      'No projectile weapons allowed',
+      'Robots must fit within 1m x 1m x 1m dimensions',
+      'Wireless control mandatory',
+      'Technical inspection required before battles'
+    ],
+    eligibility: 'Open to all engineering students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/robowars-rules',
+    registrationLink: 'https://forms.google.com/robowars-register',
   },
   {
     title: 'Power Grid Challenge',
@@ -26,6 +70,19 @@ const events = [
     category: 'Electrical',
     date: 'All Days',
     prize: '1L',
+    venue: 'Electrical Lab, Main Building',
+    teamSize: '2-4 members',
+    rules: [
+      'Design must comply with IEEE standards',
+      'Simulation required before hardware implementation',
+      'Efficiency and reliability will be key judging criteria',
+      'Presentation of design methodology required',
+      'Safety protocols must be strictly followed'
+    ],
+    eligibility: 'Open to all electrical and electronics engineering students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/powergrid-rules',
+    registrationLink: 'https://forms.google.com/powergrid-register',
   },
   {
     title: 'Circuit Maestro',
@@ -34,6 +91,19 @@ const events = [
     category: 'Electronics',
     date: 'Day 1',
     prize: '30K',
+    venue: 'Electronics Lab, Block B',
+    teamSize: '1-3 members',
+    rules: [
+      'Both analog and digital circuit challenges will be included',
+      'Participants must bring their own simulation tools',
+      'Standard components will be provided for hardware implementation',
+      'PCB design skills will be an advantage',
+      'Time-bound rounds with increasing difficulty'
+    ],
+    eligibility: 'Open to all ECE, EE, and CSE students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/circuit-rules',
+    registrationLink: 'https://forms.google.com/circuit-register',
   },
   {
     title: 'TechQuiz',
@@ -42,6 +112,19 @@ const events = [
     category: 'Quiz',
     date: 'Day 2',
     prize: '20K',
+    venue: 'Seminar Hall 1',
+    teamSize: '2-3 members',
+    rules: [
+      'Multiple rounds including buzzer, visual, and rapid fire',
+      'Questions span all engineering domains',
+      'No mobile phones or electronic devices allowed',
+      'Negative marking in finals',
+      'Quiz master\'s decision is final'
+    ],
+    eligibility: 'Open to all college students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/techquiz-rules',
+    registrationLink: 'https://forms.google.com/techquiz-register',
   },
   {
     title: 'GameJam',
@@ -50,6 +133,19 @@ const events = [
     category: 'Gaming',
     date: 'Day 3',
     prize: '40K',
+    venue: 'Computer Center, 24/7 Access',
+    teamSize: '1-4 members',
+    rules: [
+      'Theme will be announced at the start',
+      'Any game engine or framework allowed',
+      'All assets must be created during the jam',
+      'Game must be playable and bug-free',
+      'Judging based on creativity, gameplay, and technical execution'
+    ],
+    eligibility: 'Open to all students with programming knowledge',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/gamejam-rules',
+    registrationLink: 'https://forms.google.com/gamejam-register',
   },
   {
     title: 'TechTalk',
@@ -58,6 +154,19 @@ const events = [
     category: 'Speaking',
     date: 'Day 2',
     prize: '25K',
+    venue: 'Main Auditorium',
+    teamSize: '1-2 presenters',
+    rules: [
+      'Presentation duration: 10 minutes + 5 minutes Q&A',
+      'Topic must be technology-related and innovative',
+      'Slides required, demos are encouraged',
+      'Judging based on idea, presentation, and feasibility',
+      'Prelims will be abstract-based shortlisting'
+    ],
+    eligibility: 'Open to all students with innovative ideas',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/techtalk-rules',
+    registrationLink: 'https://forms.google.com/techtalk-register',
   },
   {
     title: 'Debug Derby',
@@ -66,10 +175,175 @@ const events = [
     category: 'Coding',
     date: 'Day 3',
     prize: '15K',
+    venue: 'Computer Lab, Block C',
+    teamSize: '1 member',
+    rules: [
+      'Multiple codebases with hidden bugs will be provided',
+      'Bugs range from syntax errors to logical flaws',
+      'Faster fixes earn more points',
+      'Code must pass all test cases after fixes',
+      'Programming language proficiency in C++, Java, or Python required'
+    ],
+    eligibility: 'Open to all students with coding experience',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/debugderby-rules',
+    registrationLink: 'https://forms.google.com/debugderby-register',
+  },
+  {
+    title: 'LaunchPad',
+    description: 'Pitch your startup idea to investors. Transform your vision into reality with mentorship and funding opportunities.',
+    icon: Rocket,
+    category: 'Startup',
+    date: 'Day 1',
+    prize: '60K',
+    venue: 'Innovation Hub',
+    teamSize: '2-5 members',
+    rules: [
+      'Pitch duration: 7 minutes + 8 minutes Q&A',
+      'Business model and market analysis required',
+      'Prototype or MVP preferred but not mandatory',
+      'Judging by industry experts and investors',
+      'Top ideas will receive mentorship opportunities'
+    ],
+    eligibility: 'Open to all students with entrepreneurial mindset',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/launchpad-rules',
+    registrationLink: 'https://forms.google.com/launchpad-register',
+  },
+  {
+    title: 'AI Arena',
+    description: 'Build intelligent systems that learn and adapt. Machine learning meets real-world problem solving.',
+    icon: Brain,
+    category: 'AI/ML',
+    date: 'Day 2',
+    prize: '55K',
+    venue: 'AI Lab, Research Block',
+    teamSize: '1-3 members',
+    rules: [
+      'Problem statement will involve classification or prediction',
+      'Any ML framework allowed (TensorFlow, PyTorch, etc.)',
+      'Model accuracy and efficiency both matter',
+      'Explainability of model required',
+      'Pre-trained models allowed with proper attribution'
+    ],
+    eligibility: 'Open to students with ML/AI knowledge',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/aiarena-rules',
+    registrationLink: 'https://forms.google.com/aiarena-register',
+  },
+  {
+    title: 'Hack Championship',
+    description: '36-hour hackathon to build solutions for real-world problems. Code, innovate, and create impact.',
+    icon: Trophy,
+    category: 'Hackathon',
+    date: 'Day 1-2',
+    prize: '90K',
+    venue: 'Central Building, 24/7',
+    teamSize: '2-4 members',
+    rules: [
+      'Problem statements released at inauguration',
+      'Any technology stack allowed',
+      'Must be a working prototype/product',
+      'Mentors available throughout',
+      'Final presentation to panel of judges'
+    ],
+    eligibility: 'Open to all students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/hackchamp-rules',
+    registrationLink: 'https://forms.google.com/hackchamp-register',
+  },
+  {
+    title: 'Precision Engineering',
+    description: 'Design and manufacture precision components. CAD skills meet manufacturing excellence.',
+    icon: Target,
+    category: 'Mechanical',
+    date: 'Day 3',
+    prize: '35K',
+    venue: 'Mechanical Workshop',
+    teamSize: '2-4 members',
+    rules: [
+      'CAD design submission required',
+      'Manufacturing using provided machinery',
+      'Tolerances and precision will be measured',
+      'Safety gear mandatory',
+      'Time and material constraints apply'
+    ],
+    eligibility: 'Open to all engineering students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/precision-rules',
+    registrationLink: 'https://forms.google.com/precision-register',
+  },
+  {
+    title: 'IoT Hackfest',
+    description: 'Create smart connected devices. Sensors, actuators, and cloud integration combined.',
+    icon: Sparkles,
+    category: 'IoT',
+    date: 'Day 1',
+    prize: '45K',
+    venue: 'IoT Lab, Block D',
+    teamSize: '2-4 members',
+    rules: [
+      'Must use at least 2 sensors',
+      'Cloud connectivity required',
+      'Arduino, Raspberry Pi, or ESP32 allowed',
+      'Mobile app or web dashboard preferred',
+      'Real-world application scenarios favored'
+    ],
+    eligibility: 'Open to students with basic electronics and programming knowledge',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/iothack-rules',
+    registrationLink: 'https://forms.google.com/iothack-register',
+  },
+  {
+    title: 'Signal Symphony',
+    description: 'Master signal processing and communication systems. From theory to implementation.',
+    icon: Radio,
+    category: 'Communication',
+    date: 'Day 2',
+    prize: '32K',
+    venue: 'Communication Lab',
+    teamSize: '2-3 members',
+    rules: [
+      'Theoretical and practical rounds',
+      'MATLAB/Python for simulations',
+      'Hardware implementation in finals',
+      'Focus on modulation, filtering, and transmission',
+      'Report submission required'
+    ],
+    eligibility: 'Open to ECE, EE, and EI students',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/signalsymphony-rules',
+    registrationLink: 'https://forms.google.com/signalsymphony-register',
+  },
+  {
+    title: 'OpenSource Odyssey',
+    description: 'Contribute to open source projects. Collaborate, code, and make a difference in the developer community.',
+    icon: GitBranch,
+    category: 'Open Source',
+    date: 'Day 3',
+    prize: '28K',
+    venue: 'Online + Computer Lab',
+    teamSize: '1-2 members',
+    rules: [
+      'Choose from pre-selected open source projects',
+      'Meaningful contributions required (not just typo fixes)',
+      'Pull requests must be accepted by maintainers',
+      'Documentation and code quality matter',
+      'Judging based on impact and complexity of contribution'
+    ],
+    eligibility: 'Open to all students familiar with Git and GitHub',
+    contact: 'sphuran@eesiiests.org',
+    rulebookLink: 'https://drive.google.com/opensource-rules',
+    registrationLink: 'https://forms.google.com/opensource-register',
   },
 ];
 
 const EventsSection = () => {
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [showAllEvents, setShowAllEvents] = useState(false);
+  
+  const displayedEvents = showAllEvents ? events : events.slice(0, 8);
+
   return (
     <section id="events" className="relative py-24 md:py-32 overflow-hidden">
       {/* Decorative Circuit Pattern */}
@@ -99,27 +373,36 @@ const EventsSection = () => {
 
         {/* Events Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {events.map((event, index) => (
+          {displayedEvents.map((event, index) => (
             <div
               key={event.title}
               style={{ animationDelay: `${index * 0.1}s` }}
               className="animate-slide-up"
             >
-              <EventCard {...event} />
+              <EventCard {...event} onClick={() => setSelectedEvent(event)} />
             </div>
           ))}
         </div>
 
         {/* View All CTA */}
         <div className="text-center mt-12">
-          <a
-            href="#"
+          <button
+            onClick={() => setShowAllEvents(!showAllEvents)}
             className="inline-block px-8 py-4 border border-primary text-primary font-display text-sm tracking-widest uppercase hover:bg-primary hover:text-primary-foreground transition-all duration-300 rounded-sm"
           >
-            View All Events
-          </a>
+            {showAllEvents ? 'Show Less' : 'View All Events'}
+          </button>
         </div>
       </div>
+
+      {/* Event Detail Modal */}
+      {selectedEvent && (
+        <EventDetailModal
+          isOpen={!!selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+          {...selectedEvent}
+        />
+      )}
     </section>
   );
 };
