@@ -1,18 +1,19 @@
 import sphuranLogo from '@/assets/sphuran-logo.jpg';
+import { getYear } from 'date-fns';
 
 const Footer = () => {
   return (
-    <footer className="relative py-16 md:py-24 border-t border-border bg-background">
+    <footer className="relative py-8 md:py-12 border-t border-border bg-background">
       <div className="container mx-auto px-4 md:px-6">
         {/* Main Footer Grid */}
-        <div className="grid md:grid-cols-12 gap-12 mb-16">
-          {/* Brand Column */}
-          <div className="md:col-span-5">
-            <div className="flex items-center gap-4 mb-6">
-              <img 
-                src={sphuranLogo} 
-                alt="Sphuran Logo" 
-                className="w-14 h-14 object-contain rounded-xl border border-border"
+        <div className="flex justify-center items-center gap-20 space-y-12 mb-16">
+          {/* Brand Column - Full Width */}
+          <div className='flex-1'>
+            <div className="flex justify-center items-center gap-4 mb-6">
+              <img
+                src={sphuranLogo}
+                alt="Sphuran Logo"
+                className="w-14 h-14 md:w-16 md:h-16 object-contain rounded-xl"
               />
               <div>
                 <div className="font-display text-2xl font-bold tracking-wider text-foreground">
@@ -23,72 +24,101 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p className="font-body text-sm text-muted-foreground leading-relaxed max-w-sm">
-              The technical festival of the Electrical Engineering Department at IIEST Shibpur, 
+            <p className="font-body text-center text-sm text-muted-foreground leading-relaxed max-w-2xl">
+              The technical festival of the Electrical Engineering Department at IIEST Shibpur,
               bringing together students, industry leaders, and researchers to showcase technical skills and innovations.
             </p>
           </div>
 
-          {/* Quick Links */}
-          <div className="md:col-span-3">
-            <h4 className="font-display text-sm tracking-widest uppercase text-foreground mb-6">Quick Links</h4>
-            <div className="space-y-3">
-              {['Home', 'About', 'Events', 'Schedule', 'Contact'].map((link) => (
-                <a 
-                  key={link}
-                  href={`#${link.toLowerCase()}`} 
-                  className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {link}
-                </a>
-              ))}
+          {/* Three Column Grid - Quick Links, Contact, Social Media */}
+          <div className="grid md:grid-cols-3 gap-12">
+            {/* Quick Links */}
+            <div>
+              <h4 className="font-display text-sm tracking-widest uppercase text-foreground mb-6">Quick Links</h4>
+              <div className="space-y-3">
+                {['Home', 'About', 'Events', 'Schedule', 'Contact'].map((link) => (
+                  <a
+                    key={link}
+                    href={`#${link.toLowerCase()}`}
+                    className="block font-body text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {link}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Contact */}
-          <div className="md:col-span-4">
-            <h4 className="font-display text-sm tracking-widest uppercase text-foreground mb-6">Contact</h4>
-            <div className="space-y-3 font-body text-sm text-muted-foreground">
-              <p>Department of Electrical Engineering</p>
-              <p>IIEST Shibpur, Howrah - 711103</p>
-              <p>West Bengal, India</p>
-              <a href="mailto:sphuran.ees@gmail.com" className="block text-primary hover:underline mt-4">
-                sphuran.ees@gmail.com
-              </a>
-              <a href="https://sphuran.eesiiests.org" target="_blank" rel="noopener noreferrer" className="block text-primary hover:underline">
-                sphuran.eesiiests.org
-              </a>
+            {/* Contact */}
+            <div>
+              <h4 className="font-display text-sm tracking-widest uppercase text-foreground mb-6">Contact</h4>
+              <div className="space-y-3 font-body text-sm text-muted-foreground">
+                <p>Department of Electrical Engineering</p>
+                <p>IIEST Shibpur, Howrah - 711103</p>
+                <p>West Bengal, India</p>
+                <a href="mailto:sphuran.ees@gmail.com" className="block text-primary hover:underline mt-4">
+                  sphuran.ees@gmail.com
+                </a>
+                <a href="mailto:contact@eesiiests.org" className="block text-primary hover:underline mt-4">
+                  contact@eesiiests.org
+                </a>
+              </div>
+            </div>
+
+            {/* Social Media */}
+            <div>
+              <h4 className="font-display text-sm tracking-widest uppercase text-foreground mb-6">Social Media</h4>
+              <div className="space-y-3">
+                <a
+                  href="https://www.instagram.com/_sphuran.ees"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/sphuran-iiest"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <span>LinkedIn</span>
+                </a>
+                <a
+                  href="https://www.facebook.com/sphuran.ees"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <span>Facebook</span>
+                </a>
+                <a
+                  href="https://whatsapp.com/channel/0029Va5VWG95dTnNOBYQvB0L"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <span>WhatsApp Channel</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="pt-8 border-t border-border text-center">
           <div className="font-body text-xs text-muted-foreground">
-            &copy; {new Date().getFullYear()}{' '}
-            <a 
-              href="https://www.eesiiests.org" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            &copy; {getYear(new Date())} <s></s>
+            <a
+              href="https://www.eesiiests.org"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
             >
               Electrical Engineers' Society
             </a>
-            . All rights reserved.
-          </div>
-          <div className="flex items-center gap-4">
-            <a 
-              href="https://instagram.com/sphuran.ees" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-body text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
-              @sphuran.ees
-            </a>
-            <span className="text-border">|</span>
-            <div className="font-body text-xs text-muted-foreground">
-              Designed by <span className="text-primary">EES Web Team</span>
-            </div>
+            {' | '}
+            Designed by <span className="text-primary">EES Web Team</span>
           </div>
         </div>
       </div>

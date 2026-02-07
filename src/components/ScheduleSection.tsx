@@ -50,20 +50,18 @@ const ScheduleSection = () => {
         </div>
 
         {/* Schedule Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* <div className="grid md:grid-cols-3 gap-8">
           {scheduleData.map((day, dayIndex) => (
             <div
               key={day.day}
               className="border border-border rounded-lg overflow-hidden bg-card/50 animate-slide-up"
               style={{ animationDelay: `${dayIndex * 0.2}s` }}
             >
-              {/* Day Header */}
               <div className="p-6 border-b border-border bg-secondary/50">
                 <h3 className="font-display text-2xl font-bold text-primary">{day.day}</h3>
                 <p className="font-body text-sm text-muted-foreground mt-1">{day.date}</p>
               </div>
 
-              {/* Events List */}
               <div className="divide-y divide-border">
                 {day.events.map((event, eventIndex) => (
                   <div
@@ -84,6 +82,20 @@ const ScheduleSection = () => {
               </div>
             </div>
           ))}
+        </div> */}
+        {/* Coming Soon Message */}
+        <div className="flex flex-col items-center justify-center py-20">
+          <div className="relative">
+            <h3 className="font-display text-5xl md:text-7xl lg:text-8xl font-black text-foreground/10">
+              COMING
+            </h3>
+            <h3 className="font-display text-5xl md:text-7xl lg:text-8xl font-black text-primary text-glow absolute top-0 left-0 transform translate-y-16 md:translate-y-20">
+              SOON
+            </h3>
+          </div>
+          <p className="font-body text-muted-foreground text-center mt-32 md:mt-40 max-w-md">
+            The detailed event schedule will be announced soon. Stay tuned for updates!
+          </p>
         </div>
       </div>
     </section>

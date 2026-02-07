@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
 import sphuranLogo from '@/assets/sphuran-logo.jpg';
+import ChipsTab from './ui/tabs/ChipsTab';
+import { StaggeredMenu } from './ui/tabs/StaggeredMenu';
+import { SocialLinks } from '@/lib/utils';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -9,6 +11,17 @@ const navItems = [
   { label: 'Schedule', href: '#schedule' },
   { label: 'Contact', href: '#contact' },
 ];
+
+const staggeredMenuItems = navItems.map((item) => ({
+  label: item.label,
+  ariaLabel: `Navigate to ${item.label}`,
+  link: item.href,
+}));
+
+const socialLinks = SocialLinks.map((social) => ({
+  label: social.label,
+  link: social.link,
+}));
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +33,30 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle menu item clicks from StaggeredMenu for smooth scrolling
+  useEffect(() => {
+    const handleLinkClick = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a.sm-panel-item');
+      if (link && link instanceof HTMLAnchorElement) {
+        const href = link.getAttribute('href');
+        if (href?.startsWith('#')) {
+          e.preventDefault();
+          scrollToSection(href);
+          
+          // Close the StaggeredMenu by clicking the toggle button
+          const toggleButton = document.querySelector('.sm-toggle') as HTMLButtonElement;
+          if (toggleButton && isOpen) {
+            toggleButton.click();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('click', handleLinkClick, true);
+    return () => document.removeEventListener('click', handleLinkClick, true);
+  }, [isOpen]);
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -29,109 +66,83 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
-    }`}>
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between h-20 md:h-24">
-          {/* Logo */}
-          <a 
-            href="#home" 
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#home');
-            }}
-          >
-            <img 
-              src={sphuranLogo} 
-              alt="Sphuran Logo" 
-              className="h-10 w-10 md:h-12 md:w-12 object-contain rounded-lg border border-border"
-            />
-            <div className="hidden sm:block">
-              <span className="font-display text-lg md:text-xl font-bold tracking-wider text-foreground">
-                SPHURAN
-              </span>
-              <span className="font-display text-lg md:text-xl font-bold tracking-wider text-primary ml-1">
-                4.0
-              </span>
-            </div>
-          </a>
-
-          {/* Desktop Nav Links */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className="font-body text-sm tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors"
-              >
-                {item.label}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA + Menu */}
-          <div className="flex items-center gap-4">
-            <a
-              href="#events"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection('#events');
-              }}
-              className="hidden md:block px-5 py-2 bg-primary text-primary-foreground font-display text-xs tracking-widest uppercase hover:bg-primary/90 transition-all"
-            >
-              Register
-            </a>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
+    <>
+      {/* Mobile StaggeredMenu - Only visible on mobile */}
+      <div className="lg:hidden fixed inset-0 z-50 pointer-events-none">
+        <StaggeredMenu
+          position="right"
+          colors={['#1a1a2e', '#16213e', '#0f3460']}
+          items={staggeredMenuItems}
+          socialItems={socialLinks}
+          displaySocials={true}
+          displayItemNumbering={true}
+          logoUrl={sphuranLogo}
+          menuButtonColor={scrolled ? '#ffffff' : '#ffffff'}
+          openMenuButtonColor="#000000"
+          accentColor="#6366f1"
+          isFixed={false}
+          changeMenuColorOnOpen={true}
+          closeOnClickAway={true}
+          onMenuOpen={() => setIsOpen(true)}
+          onMenuClose={() => setIsOpen(false)}
+        />
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border">
-          <div className="container mx-auto px-4 py-6 space-y-1">
-            {navItems.map((item, index) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection(item.href);
-                }}
-                className="block py-3 font-body text-sm tracking-widest uppercase text-muted-foreground hover:text-primary transition-colors border-b border-border last:border-b-0"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                {item.label}
-              </a>
-            ))}
-            <a
-              href="#events"
+      {/* Desktop Navbar */}
+      <nav className={`hidden lg:block fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-background/95 backdrop-blur-md border-b border-border' : 'bg-transparent'
+      }`}>
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between h-20 md:h-24">
+            {/* Logo - Hidden on mobile since StaggeredMenu has its own logo */}
+            <a 
+              href="#home" 
+              className="hidden lg:flex items-center gap-3 hover:opacity-80 transition-opacity"
               onClick={(e) => {
                 e.preventDefault();
-                scrollToSection('#events');
+                scrollToSection('#home');
               }}
-              className="block mt-4 py-3 text-center bg-primary text-primary-foreground font-display text-sm tracking-widest uppercase"
             >
-              Register Now
+              <img 
+                src={sphuranLogo} 
+                alt="Sphuran Logo" 
+                className="h-10 w-10 md:h-12 md:w-12 object-contain rounded-lg "
+              />
+              <div className="hidden sm:block">
+                <span className="font-display text-lg md:text-xl font-bold tracking-wider text-foreground">
+                  SPHURAN
+                </span>
+                <span className="font-display text-lg md:text-xl font-bold tracking-wider text-primary ml-1">
+                  4.0
+                </span>
+              </div>
             </a>
+
+            {/* Desktop Navigation with ChipsTab - Hidden on mobile */}
+            <div className="hidden lg:block">
+              <ChipsTab
+                tabs={navItems}
+                onSelect={(tab) => scrollToSection(tab.href ?? '')}
+              />
+            </div>
+
+            {/* CTA Button - Hidden on mobile */}
+            <div className="hidden lg:flex items-center gap-4">
+              <a
+                href="#events"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('#events');
+                }}
+                className="px-5 py-2 bg-primary text-white font-display text-xs tracking-widest uppercase hover:bg-primary/90 transition-all"
+              >
+                Register
+              </a>
+            </div>
           </div>
         </div>
-      )}
-    </nav>
+      </nav>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import electricalIcon from '@/assets/electrical-icon.png';
+import eesLogo from '@/assets/ees-logo.png';
 import sphuranLogo from '@/assets/sphuran-logo.jpg';
 
 const AboutSection = () => {
@@ -44,7 +44,7 @@ const AboutSection = () => {
               <img 
                 src={sphuranLogo} 
                 alt="Sphuran Logo" 
-                className="w-20 h-20 object-contain rounded-xl border border-border"
+                className="w-20 h-20 object-contain rounded-xl"
               />
               <div>
                 <div className="font-display text-lg font-bold text-foreground">SPHURAN 4.0</div>
@@ -58,7 +58,7 @@ const AboutSection = () => {
             {/* EES Info */}
             <div className="flex items-start gap-4 p-6 bg-card border border-border rounded-lg">
               <img 
-                src={electricalIcon} 
+                src={eesLogo} 
                 alt="Electrical Engineering" 
                 className="w-14 h-14 object-contain"
               />
@@ -68,7 +68,7 @@ const AboutSection = () => {
                 </h3>
                 <p className="font-body text-sm text-muted-foreground mt-1">
                   Department of Electrical Engineering<br/>
-                  IIEST Shibpur, Est. 1856
+                  IIEST Shibpur, Est. 1912
                 </p>
               </div>
             </div>
@@ -78,9 +78,9 @@ const AboutSection = () => {
           <div className="lg:col-span-7 space-y-8">
             {/* About Sphuran */}
             <div>
-              <h3 className="font-display text-xl font-bold text-primary mb-4">About Sphuran</h3>
+              <h3 className="font-display text-xl font-bold text-primary mb-4">About SPHURAN</h3>
               <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed">
-                <span className="text-foreground font-semibold">Sphuran</span>, the technical festival of the Electrical Engineering 
+                <span className="text-foreground font-semibold">SPHURAN</span>, the technical festival of the Electrical Engineering 
                 Department at IIEST Shibpur, brings together students, industry leaders, and researchers to showcase 
                 technical skills and innovations. It serves as a dynamic platform that highlights creativity, 
                 innovation, and excellence in the field of electrical engineering.

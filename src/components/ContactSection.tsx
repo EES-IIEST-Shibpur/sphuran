@@ -1,4 +1,5 @@
-import { Mail, MapPin, Phone, Instagram, ExternalLink } from 'lucide-react';
+import { Mail, MapPin, Phone, ExternalLink, Share2 } from 'lucide-react';
+import { FaInstagram, FaTwitter, FaLinkedin, FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import { useState, FormEvent } from 'react';
 import axios from 'axios';
 
@@ -88,6 +89,12 @@ const ContactSection = () => {
                     className="font-body text-sm text-foreground hover:text-primary transition-colors"
                   >
                     sphuran.ees@gmail.com
+                  </a><br />
+                  <a 
+                    href="mailto:contact@eesiiests.org" 
+                    className="font-body text-sm text-foreground hover:text-primary transition-colors"
+                  >
+                    contact@eesiiests.org
                   </a>
                 </div>
               </div>
@@ -128,33 +135,45 @@ const ContactSection = () => {
             {/* Social Media */}
             <div className="flex items-start gap-4 p-5 bg-card border border-border rounded-lg hover:border-primary/50 transition-colors">
               <div className="w-10 h-10 flex items-center justify-center bg-primary/10 rounded-lg shrink-0">
-                <Instagram className="w-4 h-4 text-primary" />
+                <Share2 className="w-4 h-4 text-primary" />
               </div>
               <div>
                 <h3 className="font-display text-xs tracking-wider uppercase text-muted-foreground mb-2">Social Media</h3>
                 <div className="flex flex-wrap gap-2">
                   <a 
-                    href="https://instagram.com/sphuran.ees" 
+                    href="https://instagram.com/_sphuran.ees" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
                   >
+                    <FaInstagram className="w-3.5 h-3.5" />
                     @sphuran.ees
                   </a>
                   <a 
-                    href="https://twitter.com/_sphuran.ees" 
+                    href="https://facebook.com/sphuran.ees" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
                   >
-                    @_sphuran.ees
+                    <FaFacebook className="w-3.5 h-3.5" />
+                    @sphuran.ees
                   </a>
                   <a 
                     href="https://linkedin.com/company/sphuran-iiests" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
                   >
+                    <FaLinkedin className="w-3.5 h-3.5" />
+                    sphuran-iiests
+                  </a>
+                  <a 
+                    href="https://wa.me/yourwhatsapplink" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-full font-body text-xs text-muted-foreground hover:text-primary hover:border-primary transition-colors"
+                  >
+                    <FaWhatsapp className="w-3.5 h-3.5" />
                     sphuran-iiests
                   </a>
                 </div>
